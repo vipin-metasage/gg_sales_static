@@ -25,7 +25,7 @@ GROUP BY customer;
 ```
 
 ```sql sku_summary
-SELECT *
+SELECT *,customer
     FROM Clickhouse.sku
     where customer like '${inputs.customer.value}'
     order by invoice_date desc
@@ -50,7 +50,7 @@ SELECT *
   <DropdownOption value="%" valueLabel="All"/>
 </Dropdown>
 
-<Dropdown data={customer} name=customer value=customer defaultValue="Walmart Inc." title="Customer">
+<Dropdown data={customer} name=customer value=customer defaultValue="Gayatri Foods" title="Customer">
 </Dropdown>
 
 </center>
@@ -159,6 +159,7 @@ ORDER BY payment_term_desc
 SELECT
     EXTRACT(YEAR FROM CAST(first_invoice_date AS TIMESTAMP)) AS year
 FROM Clickhouse.invoice
+where customer like '${inputs.customer.value}'
 GROUP BY year
 ORDER BY year DESC;
 ```
